@@ -12,7 +12,7 @@ s21_math.a:
 	ar -rc s21_math.a s21_math.o
 	ranlib s21_math.a
 
-test:
+test: clean
 	$(CC) $(CFLAGS) s21_math.c tests.c
 	$(CC) s21_math.o tests.o $(TST_LIBS) -o test
 	./test

@@ -206,7 +206,7 @@ long double s21_exp(double x) {
     res = s21_INFINITY;
   } else {
     long double add = 1, i = 1;
-    while (s21_fabs(add) > 1e-7) {
+    while (s21_fabs(add) > 1e-6) {
       add *= x / i;
       res += add;
       i++;

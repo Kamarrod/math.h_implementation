@@ -279,6 +279,7 @@ END_TEST
 
 START_TEST(exp_test_8) {
   ck_assert_ldouble_eq_tol(expl(0), s21_exp(0), s21_eps);
+  ck_assert_ldouble_eq_tol(expl(-0), s21_exp(-0), s21_eps);
   ck_assert_ldouble_eq_tol(expl(1), s21_exp(1), s21_eps);
 }
 END_TEST
@@ -292,11 +293,15 @@ END_TEST
 START_TEST(exp_test_10) {
   ck_assert_double_infinite(expl(LDBL_MAX));
   ck_assert_double_infinite(s21_exp(LDBL_MAX));
+  ck_assert_ldouble_eq_tol(expl(LDBL_MIN), s21_exp(LDBL_MIN), s21_eps);
+
 }
 END_TEST
 
 START_TEST(exp_test_11) {
-  ck_assert_ldouble_eq_tol(expl(LDBL_MIN), s21_exp(LDBL_MIN), s21_eps);
+    ck_assert_double_infinite(exp(DBL_MAX));
+  ck_assert_double_infinite(s21_exp(DBL_MAX));
+  ck_assert_ldouble_eq_tol(exp(DBL_MIN), s21_exp(DBL_MIN), s21_eps);
 }
 END_TEST
 
@@ -456,6 +461,9 @@ END_TEST
 START_TEST(atan_test_5) {
   ck_assert_ldouble_eq_tol(s21_atan(LDBL_MAX), atanl(LDBL_MAX), s21_eps);
   ck_assert_ldouble_eq_tol(s21_atan(LDBL_MIN), atanl(LDBL_MIN), s21_eps);
+
+  ck_assert_ldouble_eq_tol(s21_atan(DBL_MAX), atan(DBL_MAX), s21_eps);
+  ck_assert_ldouble_eq_tol(s21_atan(DBL_MIN), atan(DBL_MIN), s21_eps);
 }
 END_TEST
 
