@@ -34,7 +34,8 @@ gcov_report:
 clang:
 	cp ../materials/linters/.clang-format .
 # clang-format -i *.c *.h
-	clang-format -n *.c *.h
+	clang-format -n *.c
+	clang-format -n *.h
 
 
 clean:
