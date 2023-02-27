@@ -252,7 +252,7 @@ START_TEST(exp_test_4) {
   for (int k = 25; k <= 200; k++) {
     int zi = 16;
     sprintf(str1, "%LF", s21_exp(k));
-    sprintf(str2, "%LF", exp(k));
+    sprintf(str2, "%LF", expl(k));
     for (int i = 0; i < 17; i++)
       if (str2[i] == '.') {
         zi++;
@@ -416,10 +416,7 @@ END_TEST
 ///////////////////ATAN START
 
 START_TEST(atan_test_1) {
-  for (double k = 1500000; k <= 1500000; k += 0.05)
-    ck_assert_ldouble_eq_tol(s21_atan(k), atan(k), s21_eps);
-
-  for (double k = -1500; k <= 1500; k++)
+  for (double k = -15000000; k <= 15000000; k += 1000)
     ck_assert_ldouble_eq_tol(s21_atan(k), atan(k), s21_eps);
   ck_assert_ldouble_eq_tol(s21_atan(5.123456789123), atan(5.123456789123),
                            s21_eps);
@@ -623,9 +620,9 @@ START_TEST(log_test_5) {
 }
 END_TEST
 
-Suite* suite() {
-  Suite* s = suite_create("tests");
-  TCase* tc = tcase_create("core");
+Suite *suite() {
+  Suite *s = suite_create("tests");
+  TCase *tc = tcase_create("core");
 
   tcase_add_test(tc, fabsTest);
   tcase_add_test(tc, absTest);
@@ -688,8 +685,8 @@ Suite* suite() {
 
 int main() {
   int nf;
-  Suite* s = suite();
-  SRunner* sr;
+  Suite *s = suite();
+  SRunner *sr;
 
   sr = srunner_create(s);
 
@@ -700,7 +697,6 @@ int main() {
   srunner_free(sr);
   return nf == 0 ? 0 : 1;
 }
-
 
 // int main() {
 
