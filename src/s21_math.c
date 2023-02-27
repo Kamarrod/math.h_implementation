@@ -206,7 +206,7 @@ long double s21_exp(double x) {
     res = s21_INFINITY;
   } else {
     long double add = 1, i = 1;
-    while (s21_fabs(add) > 1e-6) {
+    while (s21_fabs(add) > 1e-7) {
       add *= x / i;
       res += add;
       i++;
@@ -219,6 +219,38 @@ long double s21_exp(double x) {
   }
   return res;
 }
+
+// long double s21_exp(double x) {
+//   long double res = 1;
+//   if (x < -19)
+//     res = 0;
+//   else if (x == s21_INFINITY) {
+//     res = s21_INFINITY;
+//   } else {
+//     if(x >=2) {
+//       while(x>=2){
+//         x=x-2;
+//         res=res * (long double) e2;
+//       }
+//       res*=s21_exp(x);
+//     } else {
+//       long double add = 1, i = 1;
+//       while (s21_fabs(add) > 1e-7) {
+//         add *= x / i;
+//         res += add;
+//         i++;
+
+//         if (res > DBL_MAX) {
+//           res = s21_INFINITY;
+//           break;
+//         }
+//       }
+//     }
+
+//   }
+//   return res;
+// }
+
 
 long double s21_ceil(double x) {
   long double result = x;
@@ -311,3 +343,13 @@ long double s21_log(double x) {
   }
   return x == 0 ? -s21_INFINITY : x == s21_INFINITY ? s21_INFINITY : result;
 }
+
+
+// int main() {
+
+//   for (double k = 0; k <= 26; k++) {
+//     printf("k:%.0f  MY: %Lf ORIG: %f \n", k , s21_exp(k), exp(k));
+//   }
+
+//     return 0;
+// }

@@ -18,6 +18,7 @@
 #define s21_INFINITY 1.0 / 0.0
 #define s21_NAN -0.0 / 0.0
 #define ln0_1 -2.30258509299
+#define e2 7.38905609893065
 
 long double s21_sin(double x);
 long double s21_cos(double x);

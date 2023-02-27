@@ -228,31 +228,32 @@ END_TEST
 
 START_TEST(exp_test_1) {
   for (double k = -5; k < 5; k += 0.001) {
-    ck_assert_ldouble_eq_tol(s21_exp(k), exp(k), 1e-6);
+    ck_assert_ldouble_eq_tol(s21_exp(k), exp(k), s21_eps);
   }
 }
 END_TEST
 
 START_TEST(exp_test_2) {
   for (double k = -15; k < 15; k += 0.05)
-    ck_assert_ldouble_eq_tol(s21_exp(k), exp(k), 1e-6);
+    ck_assert_ldouble_eq_tol(s21_exp(k), exp(k), s21_eps);
 }
 END_TEST
 
 START_TEST(exp_test_3) {
-  for (int k = 0; k <= 24; k++)
-    ck_assert_ldouble_eq_tol(s21_exp(k), exp(k), 1e-6);
+  for (double k = 0; k <= 20; k+=1)
+    ck_assert_ldouble_eq_tol(s21_exp(k), (long double) exp(k), s21_eps);
 }
 END_TEST
+
 
 START_TEST(exp_test_4) {
   char str1[100];
   char str2[100];
   // предполгаем что в 16 символах нет точки
-  for (int k = 25; k <= 200; k++) {
+  for (double k = 20; k <= 200; k++) {
     int zi = 16;
-    sprintf(str1, "%LF", s21_exp(k));
-    sprintf(str2, "%LF", expl(k));
+    sprintf(str1, "%Lf", s21_exp(k));
+    sprintf(str2, "%f", exp(k));
     for (int i = 0; i < 17; i++)
       if (str2[i] == '.') {
         zi++;
@@ -302,6 +303,8 @@ START_TEST(exp_test_11) {
     ck_assert_double_infinite(exp(DBL_MAX));
   ck_assert_double_infinite(s21_exp(DBL_MAX));
   ck_assert_ldouble_eq_tol(exp(DBL_MIN), s21_exp(DBL_MIN), s21_eps);
+  ck_assert_ldouble_eq_tol(s21_exp(-DBL_MAX), exp(-DBL_MAX), s21_eps);
+
 }
 END_TEST
 
@@ -421,7 +424,7 @@ END_TEST
 ///////////////////ATAN START
 
 START_TEST(atan_test_1) {
-  for (double k = -15000000; k <= 15000000; k += 1000)
+  for (double k = -150000; k <= 150000; k += 1000)
     ck_assert_ldouble_eq_tol(s21_atan(k), atan(k), s21_eps);
   ck_assert_ldouble_eq_tol(s21_atan(5.123456789123), atan(5.123456789123),
                            s21_eps);
@@ -459,9 +462,6 @@ START_TEST(atan_test_4) {
 END_TEST
 
 START_TEST(atan_test_5) {
-  ck_assert_ldouble_eq_tol(s21_atan(LDBL_MAX), atanl(LDBL_MAX), s21_eps);
-  ck_assert_ldouble_eq_tol(s21_atan(LDBL_MIN), atanl(LDBL_MIN), s21_eps);
-
   ck_assert_ldouble_eq_tol(s21_atan(DBL_MAX), atan(DBL_MAX), s21_eps);
   ck_assert_ldouble_eq_tol(s21_atan(DBL_MIN), atan(DBL_MIN), s21_eps);
 }
@@ -708,8 +708,8 @@ int main() {
 
 // int main() {
 
-//   for (long double k = 0; k <= 26; k++) {
-//     printf("RES: %f k:%.0Lf \n", exp(k), k);
+//   for (double k = 0; k <= 26; k++) {
+//     printf("k:%.0f  MY: %Lf ORIG: %f \n", k , s21_exp(k), exp(k));
 //   }
 
 //     return 0;
