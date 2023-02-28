@@ -142,10 +142,12 @@ long double s21_fabs(double x) {
   long double result;
   if (x == s21_INFINITY || x == -s21_INFINITY)
     result = s21_INFINITY;
-  else if (x != x)
+  else if (s21_isNan(x))
     result = s21_NAN;
+	else if(s21_isNegativeZero(x))
+		result = 0.0;
   else
-    result = x > 0 ? x : -x;
+    result = x >= 0 ? x : -x;
   return result;
 }
 
