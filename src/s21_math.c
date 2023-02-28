@@ -123,13 +123,16 @@ long double s21_pow(double base, double exp) {
 
 long double s21_fmod(double x, double y) {
   long double result;
-  if (((x == s21_INFINITY || x == -s21_INFINITY) && y == y) ||
+	if(x == 0 && y != 0) {
+		result = s21_isNegativeZero(x) ? -0.0 : 0.0;
+	}
+  else if (((x == s21_INFINITY || x == -s21_INFINITY) && !s21_isNan(y)) ||
       (x == x && y == 0)) {
     result = s21_NAN;
   } else if ((y == s21_INFINITY || y == -s21_INFINITY) && x != s21_INFINITY &&
              x != -s21_INFINITY) {
     result = x;
-  } else if (!(x != x || y != y)) {
+  } else if (!s21_isNan(x) && !s21_isNan(y)) {
     long max = x / y > 0 ? s21_floor(x / y) : s21_ceil(x / y);
     result = x - y * max;
   } else {
