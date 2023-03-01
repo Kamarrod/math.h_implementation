@@ -123,11 +123,13 @@ long double s21_pow(double base, double exp) {
 
 long double s21_fmod(double x, double y) {
   long double result;
-	if(x == 0 && y != 0) {
-		result = s21_isNegativeZero(x) ? -0.0 : 0.0;
-	}
-  else if (((x == s21_INFINITY || x == -s21_INFINITY) && !s21_isNan(y)) ||
-      (x == x && y == 0)) {
+  if (x == 0 && y != 0) {
+    if (s21_isNegativeZero(x))
+      result = -0.0;
+    else
+      result = 0.0;
+  } else if (((x == s21_INFINITY || x == -s21_INFINITY) && !s21_isNan(y)) ||
+             (x == x && y == 0)) {
     result = s21_NAN;
   } else if ((y == s21_INFINITY || y == -s21_INFINITY) && x != s21_INFINITY &&
              x != -s21_INFINITY) {
@@ -147,14 +149,14 @@ long double s21_fabs(double x) {
     result = s21_INFINITY;
   else if (s21_isNan(x))
     result = s21_NAN;
-	else if(s21_isNegativeZero(x))
-		result = 0.0;
+  else if (s21_isNegativeZero(x))
+    result = 0.0;
   else
     result = x >= 0 ? x : -x;
   return result;
 }
 
-int s21_abs(int x) { return x > 0 ? x : -x; }
+int s21_abs(int x) { return x >= 0 ? x : -x; }
 
 long double s21_atan(double x) {
   int sign_change = 0, invertation = 0, iters = 0;
@@ -224,38 +226,6 @@ long double s21_exp(double x) {
   }
   return res;
 }
-
-// long double s21_exp(double x) {
-//   long double res = 1;
-//   if (x < -19)
-//     res = 0;
-//   else if (x == s21_INFINITY) {
-//     res = s21_INFINITY;
-//   } else {
-//     if(x >=2) {
-//       while(x>=2){
-//         x=x-2;
-//         res=res * (long double) e2;
-//       }
-//       res*=s21_exp(x);
-//     } else {
-//       long double add = 1, i = 1;
-//       while (s21_fabs(add) > 1e-7) {
-//         add *= x / i;
-//         res += add;
-//         i++;
-
-//         if (res > DBL_MAX) {
-//           res = s21_INFINITY;
-//           break;
-//         }
-//       }
-//     }
-
-//   }
-//   return res;
-// }
-
 
 long double s21_ceil(double x) {
   long double result = x;
@@ -348,7 +318,6 @@ long double s21_log(double x) {
   }
   return x == 0 ? -s21_INFINITY : x == s21_INFINITY ? s21_INFINITY : result;
 }
-
 
 // int main() {
 
